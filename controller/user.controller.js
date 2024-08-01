@@ -3,6 +3,7 @@ const User = db.user
 
 exports.create = (req, res) => {
   // Validate request
+  console.log('body-->', req.body)
   if (!req.body?.name) {
     res.status(400).send({
       message: 'Content can not be empty!',
@@ -91,6 +92,7 @@ exports.findAll = (req, res) => {
       })
     })
 }
+
 exports.findOne = (req, res) => {
   const id = req.params.id
 

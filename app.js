@@ -3,6 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const routes = require('./routes/routes.js')
 const cors = require('cors')
+var bodyParser = require('body-parser')
 
 var app = express()
 var port = process.env.APP_PORT
@@ -11,6 +12,9 @@ var corsOptions = {
   origin: 'http://localhost:8081',
 }
 app.use(cors(corsOptions))
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use(bodyParser.json())
 
 //MIDDLEWARE
 app.use(morgan('dev'))
@@ -28,8 +32,14 @@ app.use(function (req, res, next) {
 app.use(routes)
 
 //DB
-const db = require('./models')
-db.sequelize.sync()
+try {
+  console.log('Conectando la base de datos')
+  const db = require('./models')
+  db.sequelize.sync()
+  console.log('Base de datos sincronizada')
+} catch (error) {
+  console.log('problemas con la base de datos', error)
+}
 
 app.listen(port, () => {
   console.log('Server Listen at:', port)
