@@ -5,6 +5,11 @@ npm install
 docker build -t mi-maria-db-detect .
 docker run --name mi-mariadb -e MYSQL_ROOT_PASSWORD=1234 -p 3306:3306 -d mi-mariadb-detect
 
+npm install
+
+docker build -t mi-maria-db-detect .
+docker run --name mi-mariadb -e MYSQL_ROOT_PASSWORD=1234 -p 3306:3306 -d mi-mariadb-detect
+
 npm run dev to start back listening on 3001
 
 API listening at the same path.
