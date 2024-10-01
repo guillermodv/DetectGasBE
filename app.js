@@ -5,13 +5,20 @@ const routes = require('./routes/routes.js')
 const cors = require('cors')
 var bodyParser = require('body-parser')
 
+async function syncDatabase(db) {
+  await db.sequelize.sync({ force: false }); // Crea las tablas
+  console.log("Base de datos sincronizada");
+}
+
 var app = express()
+// eslint-disable-next-line no-undef
 var port = process.env.APP_PORT
 
-var corsOptions = {
-  origin: 'http://localhost:8081',
-}
-app.use(cors(corsOptions))
+// var corsOptions = {
+//   origin: 'http://localhost:3000',
+// }
+
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(bodyParser.json())
@@ -35,8 +42,7 @@ app.use(routes)
 try {
   console.log('Conectando la base de datos')
   const db = require('./models')
-  db.sequelize.sync()
-  console.log('Base de datos sincronizada')
+  syncDatabase(db);
 } catch (error) {
   console.log('problemas con la base de datos', error)
 }

@@ -1,13 +1,18 @@
+/* eslint-disable no-undef */
+require('dotenv').config();
+
 module.exports = {
-  HOST: 'localhost',
-  USER: 'root',
-  PASSWORD: 'admin',
-  DB: 'detectgas',
-  dialect: 'mysql',
+  HOST: process.env.DB_HOST,
+  USER: process.env.DB_USER,
+  PASSWORD: process.env.DB_PASSWORD,
+  DB: process.env.DB_NAME,
+  dialect: process.env.DB_DIALECT,
+  port: process.env.DB_PORT,
   pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
+    max: parseInt(process.env.DB_POOL_MAX),
+    min: parseInt(process.env.DB_POOL_MIN),
+    acquire: parseInt(process.env.DB_POOL_ACQUIRE),
+    idle: parseInt(process.env.DB_POOL_IDLE),
   },
-}
+};
+

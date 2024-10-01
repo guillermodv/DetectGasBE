@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const UserController = require('../controller/user.controller')
-const SensorController = require('../controller/sensor.controller')
+const userController = require('../controller/user.controller')
+const coreController = require('../controller/core.controller')
 
 //ROUTES
 router.get('/', (req, res) => {
@@ -9,12 +9,17 @@ router.get('/', (req, res) => {
 })
 
 //USER
-router.post('/user', UserController.create)
-router.get('/users', UserController.findAll)
-router.get('/users/:id', UserController.findOne)
+router.post('/user', userController.create)
+router.post('/login', userController.login)
+router.get('/users', userController.findAll)
+router.get('/users/:id', userController.findOne)
+router.post('/request-password-reset', userController.requestPasswordReset)
+router.post('/reset-password', userController.resetPassword)
 
-//SENSORS
-router.get('/sensors/:id/:measurement', SensorController.read)
+//CORE
+router.get('/core/:id/:measurement', coreController.saveMeasurement)
+router.get('/cores', coreController.findAll)
+router.get('/top', coreController.findAllWithMail)
 
 router.get('*', (req, res) => {
   res.send('path do not exits')
