@@ -21,9 +21,12 @@ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=1234  -p 3306:3306  -d mysql
 docker inspect database
 sudo mysql -u root -p1234
 
+//UNO A UNO
+DROP USER IF EXISTS 'pepe'@'%';
 CREATE USER 'pepe'@'%' IDENTIFIED BY '1234';
-  GRANT ALL PRIVILEGES ON *.* TO 'pepe'@'%';
-  FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON *.* TO 'pepe'@'%';
+FLUSH PRIVILEGES;
+
 
 create database XXXXX 
 
